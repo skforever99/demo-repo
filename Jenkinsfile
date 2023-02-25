@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t docker build -t skforever99/python-app:latest .'
+        sh 'docker build -t skforever99/python-app:latest .'
       }
     }
     stage('Login') {
