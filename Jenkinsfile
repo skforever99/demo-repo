@@ -19,12 +19,7 @@ pipeline {
         sh 'docker push skforever99/python-app:latest'
       }
     }
-  }
-  post {
-    always {
-      sh 'docker logout'
-    }
-    stage ('pull'){
+     stage ('pull'){
       steps { 
             sh 'sudo docker pull skforever99/python-app:latest '
            } 
@@ -33,4 +28,11 @@ pipeline {
       steps {  sh 'sudo docker run -d -p 80:80 skforever99/python-app:latest' }
     }
   }
+  post {
+    always {
+      sh 'docker logout'
+    }
+   
+  }
 }
+
