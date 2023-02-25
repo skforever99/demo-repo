@@ -1,26 +1,28 @@
-#!/usr/bin/env groovy
 pipeline {
-    agent {
-        node any
+  agent any
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'docker build -t docker build -t skforever99/python-app:latest .'
+      }
     }
-
-    stages {
-        stage('Build Image') {
-            when {
-                branch 'master'  //only run these steps on the master branch
-            }
-
-            // Jenkins Stage to Build the Docker Image
-
-        }
-
-        stage('Publish Image') {
-            when {
-                branch 'master'  //only run these steps on the master branch
-            }
-            
-            // Jenkins Stage to Publish the Docker Image to Dockerhub or any Docker repository of your choice.
-
-        }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
     }
+    stage('Push') {
+      steps {
+        sh 'docker push skforever99/python-app:latest'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker logout'
+    }
+  }
 }
