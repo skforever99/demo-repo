@@ -26,11 +26,11 @@ pipeline {
     }
     stage ('pull'){
       steps { 
-            sudo docker pull skforever99/python-app:latest
+            sh 'sudo docker pull skforever99/python-app:latest '
            } 
     }
     stage ('deploy'){
-      steps {  sudo docker run -d -p 80:80 skforever99/python-app:latest}
+      steps {  sh 'sudo docker run -d -p 80:80 skforever99/python-app:latest' }
     }
   }
 }
