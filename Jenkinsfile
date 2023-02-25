@@ -24,11 +24,13 @@ pipeline {
     always {
       sh 'docker logout'
     }
-    stage ('deploy'){
+    stage ('pull'){
       steps { 
             sudo docker pull skforever99/python-app:latest
-            sudo docker run -d -p 80:80 skforever99/python-app:latest
-      } 
+           } 
+    }
+    stage ('deploy'){
+      steps {  sudo docker run -d -p 80:80 skforever99/python-app:latest}
     }
   }
 }
