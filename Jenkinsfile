@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t skforever99/python-app:latest .'
+        sh 'docker build -t skforever99/python-app:latest1 .'
       }
     }
     stage('Login') {
@@ -16,16 +16,16 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push skforever99/python-app:latest'
+        sh 'docker push skforever99/python-app:latest1'
       }
     }
      stage ('pull'){
       steps { 
-            sh 'sudo docker pull skforever99/python-app:latest '
+            sh 'sudo docker pull skforever99/python-app:latest1 '
            } 
     }
     stage ('deploy'){
-      steps {  sh 'sudo docker run -d -p 80:80 skforever99/python-app:latest' }
+      steps {  sh 'sudo docker run -d -p 80:80 skforever99/python-app:latest1' }
     }
   }
   post {
